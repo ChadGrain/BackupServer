@@ -23,19 +23,19 @@
     background-size: cover;
 
 }
-
+/*This was Supposed stop be a crayon backround Never realy came into play.*/
 .borderchild {
     border:35px solid transparent;
     padding: 15px;
     border-image:url(../Photos/crayon_border_1.png) 100 round;
 }
-
+/*This is the Border For all my text*/
 .bordertext {
     border: 10px solid transparent;
     padding: 15px;
     border-image: url(../Photos/Border.jpg) 50 round;
 }
-
+/*This is the border for all the images and the login screen*/
 .borderimg {
     border: 10px solid transparent;
     padding: 0px;
@@ -64,24 +64,24 @@
     display: table;
     clear: both;
 }
-
+/*I was tired of typeing Style"background-color:white"*/
 .whitebackround {
     background-color:white
 }
-
+/*This is the header class*/
 .header {
     background-color: #F1F1F1;
     text-align: center;
     padding: 5px;
 }
-
+/*This is the basic center class Width optional*/
 .center {
     display: block;
     margin-left: auto;
     margin-right: auto;
     /*width: 50%;*/
 }
-
+/*This is the more accurate version of the Center class*/
 .center-screen {
     display: flex;
     flex-direction: column;

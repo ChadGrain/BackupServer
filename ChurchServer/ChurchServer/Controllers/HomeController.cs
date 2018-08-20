@@ -43,6 +43,6 @@ namespace ChurchServer.Controllers
         {
             return View();
         }
-        //Comment
+        
     }
 }

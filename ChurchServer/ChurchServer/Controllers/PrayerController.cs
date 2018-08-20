@@ -11,13 +11,17 @@ namespace ChurchServer.Controllers
 {
     public class PrayerController : Controller
     {
+        //Create instance of the Prayer Mapper named Pmap
         static prayermapper Pmap = new prayermapper();
+        //Create an instance of The PrayerDataAccess Called PDA
         static PrayerDataAccess PDA = new PrayerDataAccess();
 
         // GET: Prayer
         public ActionResult ViewPrayer()
         {
+            //Create an instance of PrayerViewModel named selectprayer
             PrayerViewModel selectprayer = new PrayerViewModel();
+            //Sends Prayerlist to the mapper to be converted for PDA
             selectprayer.PrayerList = Pmap.Map(PDA.GetPList());
             return View(selectprayer);
         }
@@ -29,6 +33,7 @@ namespace ChurchServer.Controllers
 
         public ActionResult Delete(int ListID)
         {
+            //Sends our ListID to PDA for the Delete Function
             PDA.DeleteList(ListID);
         
             return RedirectToAction("ViewPrayer");
@@ -42,7 +47,9 @@ namespace ChurchServer.Controllers
         [HttpPost]
         public ActionResult UpdateList(Prayer Update,int ListID)
         {
+            //States the ListID
             Update.ListID = ListID;
+            //Sends Updated to the update command
             PDA.UpdateList(Pmap.Map(Update));
 
             return RedirectToAction("ViewPrayer", "Prayer");
@@ -53,7 +60,7 @@ namespace ChurchServer.Controllers
         {
             //check if user is accessing view in web browser.
             if (ModelState.IsValid)
-            {                
+            {       //Adds what we recieved from the view to the Create command
                     PDA.AddList(Pmap.Map(addprayer));
             }
             return RedirectToAction("ViewPrayer");

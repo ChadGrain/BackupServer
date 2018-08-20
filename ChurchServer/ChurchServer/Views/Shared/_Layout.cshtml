@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - UnOfficial Calvary Baptist Website</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Letsdoitwithstyle.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="row backroundgradient">
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Sanctuary", "Sanctuary", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Fellowshiphall", "Fellowshiphall", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @if (Session["Username"] != null)
+                    {
+                        @Html.ActionLink("UserList", "ViewUsers", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    }
+                    @Html.ActionLink("PrayerList", "ViewPrayer", "Prayer", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Missionary", "Missionary", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Login", "Login", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Logout", "Logout", "User", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Extras<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"></li>
+                                <li><a href="/Home/Discovery">Discovery</a></li>
+                                <li><a href="/Home/Nursery">Nursery</a></li>
+                                <li><a href="/Home/About">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            @*<footer>
+                <p>&copy; @DateTime.Now.Year - CalvaryBaptistChurch</p>
+            </footer>*@
+        </div>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+</body>
+</html>

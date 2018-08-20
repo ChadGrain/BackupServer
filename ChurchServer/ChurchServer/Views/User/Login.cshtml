@@ -1,0 +1,36 @@
+﻿@model ChurchServer.Models.User
+@if (Session["UserID"] != null)
+{
+    <h2 class="whitebackround bordertext">Welcome @Session["Username"]</h2>
+}
+@{
+    ViewBag.Title = "Login";
+}
+<div class="whitebackround borderimg">
+    @using (Html.BeginForm("Login", "User", FormMethod.Post))
+    {
+        <div class="form-horizontal">
+            @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="username" id="Username" name="Username" class="form-control" data-toggle="password">
+                @*@Html.TextBoxFor(m => m.Username, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            </div>
+            <div class="form-horizontal">
+                @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <input type="password" id="Password" name="Password" class="form-control" data-toggle="password">
+                    @*@Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="login" class="btn btn-default" />
+            </div>
+        </div>
+
+        <div>
+            @Html.ActionLink("Register Account", "CreateUser")
+        </div>
+    }

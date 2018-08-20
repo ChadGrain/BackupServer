@@ -1,0 +1,92 @@
+﻿body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.backroundimg {
+    /* The image used */
+    background-image: url(../Photos/Backround.jpg);
+    /* Full height */
+    height: 1500px;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.backroundgradient {
+
+    background-image: url(../Photos/BackgroundGradient.png);
+    height: 1500px;
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.borderchild {
+    border:35px solid transparent;
+    padding: 15px;
+    border-image:url(../Photos/crayon_border_1.png) 100 round;
+}
+
+.bordertext {
+    border: 10px solid transparent;
+    padding: 15px;
+    border-image: url(../Photos/Border.jpg) 50 round;
+}
+
+.borderimg {
+    border: 10px solid transparent;
+    padding: 0px;
+    border-image: url(../Photos/Frame.png) 30 round
+}
+
+/* Create three unequal columns that floats next to each other */
+.column {
+    float: left;
+    padding: 10px;
+}
+
+    /* Left and right column */
+    .column.side {
+        width: 25%;
+    }
+
+    /* Middle column */
+    .column.middle {
+        width: 50%;
+    }
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.whitebackround {
+    background-color:white
+}
+
+.header {
+    background-color: #F1F1F1;
+    text-align: center;
+    padding: 5px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 50%;*/
+}
+
+.center-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+}

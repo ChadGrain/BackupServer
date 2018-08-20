@@ -1,0 +1,112 @@
+﻿@model ChurchServer.Models.PrayerViewModel
+@using ChurchServer.Models
+@{
+    ViewBag.Title = "ViewPrayer";
+}
+
+<h2 class="header whitebackround bordertext">Prayer List</h2>
+
+
+@if (Session["RoleID"] == null)
+{
+    <div class="whitebackround bordertext">
+        <table class="table">
+            <tr>
+
+                <th>Firstname</th>
+                <th>Lastname</th>
+                <th>Situation</th>
+                <th>DateAdded</th>
+            </tr>
+            @foreach (Prayer _prayerinfo in Model.PrayerList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => _prayerinfo.Firstname)</td>
+                    <td>@Html.DisplayFor(m => _prayerinfo.Lastname)</td>
+                    <td>@Html.DisplayFor(m => _prayerinfo.Situation)</td>
+                    <td>@Html.DisplayFor(m => _prayerinfo.date)</td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+else if (Session["RoleID"] != null)
+{
+    if (Session["RoleID"].ToString() == "1" || Session["RoleID"].ToString() == "2")
+    {
+        <div style="background-color:white">
+            <table class="table">
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Situation</th>
+                    <th>DateAdded</th>
+
+                </tr>
+                @foreach (Prayer _prayerinfo in Model.PrayerList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Firstname)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Lastname)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Situation)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.date)</td>
+
+
+
+                        @if (Session["RoleID"].ToString() == "2")
+                        {
+                            <td>@Html.ActionLink("Update", "UpdateList", new { ListID = _prayerinfo.ListID })</td>
+                        }
+
+                        @if (Session["RoleID"].ToString() == "1")
+                        {
+                            <td>@Html.ActionLink("Update", "UpdateList", new { ListID = _prayerinfo.ListID })</td>
+                            <td>@Html.ActionLink("Delete", "Delete", new { ListID = _prayerinfo.ListID })</td>
+
+                        }
+
+                        @if (_prayerinfo.DateAdded <= DateTime.Now.AddMonths(-2))
+                        {
+
+                            <td style="color:crimson"> This person has been on the list past the 2 month limit.</td>
+                        }
+
+                        else if (_prayerinfo.DateAdded <= DateTime.Now.AddDays(-14))
+                        {
+                            <td style="color:crimson"> This person has been on the list past the 2 week limit.</td>
+
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div>
+            @Html.ActionLink("Add to List", "AddList")
+        </div>
+    }
+    else if (Session["RoleID"].ToString() == "3" || Session["RoleID"].ToString() != null)
+    {
+        <div style="background-color:white">
+            <table class="table">
+                <tr>
+
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Situation</th>
+                    <th>DateAdded</th>
+                </tr>
+                @foreach (Prayer _prayerinfo in Model.PrayerList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Firstname)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Lastname)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Situation)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.date)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+}

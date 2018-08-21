@@ -9,6 +9,7 @@ namespace ChurchServer.Controllers
     public class HomeController : Controller
     {
         // GET: Home
+        //This Whole Controller is Just Views nothing special.
         public ActionResult Index()
         {
             return View();

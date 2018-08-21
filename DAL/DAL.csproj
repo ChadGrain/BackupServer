@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="objects\PrayerDAO.cs" />
+    <Compile Include="objects\RoleDAO.cs" />
     <Compile Include="objects\UserDAO.cs" />
     <Compile Include="PrayerDataAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleDataAccess.cs" />
     <Compile Include="UserDataAccess.cs" />
   </ItemGroup>
   <ItemGroup>

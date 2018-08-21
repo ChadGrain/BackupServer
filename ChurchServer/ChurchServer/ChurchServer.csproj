@@ -157,6 +157,7 @@
     <Compile Include="Models\Prayer.cs" />
     <Compile Include="Models\prayermapper.cs" />
     <Compile Include="Models\PrayerViewModel.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\usermapper.cs" />
     <Compile Include="Models\UserViewModel.cs" />

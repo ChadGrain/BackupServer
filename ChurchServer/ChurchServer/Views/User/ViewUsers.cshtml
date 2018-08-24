@@ -26,37 +26,37 @@
 
 
         </tr>
-        @foreach (User _userinfo in Model.UserList)
+        @foreach (Users _userinfo in Model.UserList)
         {
-        <tr>
-            @if (Session["RoleID"].ToString() == "1" || Session["RoleID"].ToString() == "2")
-            {
-                <td>@Html.DisplayFor(m => _userinfo.UserID)</td>
-                <td>@Html.DisplayFor(m => _userinfo.Username)</td>
-                <td>@Html.DisplayFor(m => _userinfo.Password)</td>
-            }
+            <tr>
+                @if (Session["RoleID"].ToString() == "1" || Session["RoleID"].ToString() == "2")
+                {
+                    <td>@Html.DisplayFor(m => _userinfo.UserID)</td>
+                    <td>@Html.DisplayFor(m => _userinfo.Username)</td>
+                    <td>@Html.DisplayFor(m => _userinfo.Password)</td>
+                }
 
-            <td>@Html.DisplayFor(m => _userinfo.Firstname)</td>
-            <td>@Html.DisplayFor(m => _userinfo.Lastname)</td>
+                <td>@Html.DisplayFor(m => _userinfo.Firstname)</td>
+                <td>@Html.DisplayFor(m => _userinfo.Lastname)</td>
 
-            @if (Session["RoleID"].ToString() == "1" || Session["RoleID"].ToString() == "2")
-            {
-                <td>@Html.DisplayFor(m => _userinfo.Address)</td>
-                <td>@Html.DisplayFor(m => _userinfo.RoleID)</td>
-            }
-            <td>@Html.DisplayFor(m => _userinfo.RoleName)</td>
+                @if (Session["RoleID"].ToString() == "1" || Session["RoleID"].ToString() == "2")
+                {
+                    <td>@Html.DisplayFor(m => _userinfo.Address)</td>
+                    <td>@Html.DisplayFor(m => _userinfo.RoleID)</td>
+                }
+                <td>@Html.DisplayFor(m => _userinfo.RoleName)</td>
 
-            @if (Session["RoleID"].ToString() == "2")
-            {
-                <td>@Html.ActionLink("Update", "UpdateUser", new { UserID = _userinfo.UserID })</td>
-            }
+                @*@if (Session["RoleID"].ToString() == "2")
+                    {
+                        <td>@Html.ActionLink("Update", "UpdateUser", new { UserID = _userinfo.UserID })</td>
+                    }*@
 
-            @if (Session["RoleID"].ToString() == "1")
-            {
-                <td>@Html.ActionLink("Delete", "Delete", new { UserID = _userinfo.UserID })</td>
-                <td>@Html.ActionLink("Update", "UpdateUser", new { UserID = _userinfo.UserID })</td>
-            }
-        </tr>
+                @if (Session["RoleID"].ToString() == "1")
+                {
+                    <td>@Html.ActionLink("Delete", "Delete", new { UserID = _userinfo.UserID })</td>
+                    <td>@Html.ActionLink("Update", "UpdateUser", new { UserID = _userinfo.UserID })</td>
+                }
+            </tr>
         }
 
     </table>

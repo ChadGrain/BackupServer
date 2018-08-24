@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChurchServer.Models
 {
-    public class User
+    public class Users
     {
         public int UserID { get; set; }
         public string Username { get; set; }

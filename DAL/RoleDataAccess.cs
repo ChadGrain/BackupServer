@@ -11,8 +11,6 @@ using ErrorLogger;
 
 namespace DAL
 {
-    
-    
         public class RoleDataAccess
         {
             //Reference the Web config File and create a connection to the sql Server.

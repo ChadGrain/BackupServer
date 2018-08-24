@@ -15,6 +15,27 @@ namespace ChurchServer.Controllers
         static usermapper Umap = new usermapper();
         //This creates an instance of The UserDataAcces
         static UserDataAccess UDA = new UserDataAccess();
+        static RoleDataAccess RDA = new RoleDataAccess();
+        static rolemapper Rmap = new rolemapper();
+
+        private void PopulateDropDowns()
+        {
+            RoleViewModel selectrole = new RoleViewModel();
+
+            ViewBag.RoleID = new List<SelectListItem>();
+
+            selectrole.RoleList = Rmap.Map(RDA.GetRoleList());
+            foreach (Role role in selectrole.RoleList)
+            {
+                ViewBag.RoleID.Add(new SelectListItem { Text = role.RoleName.ToString(), Value = role.RoleID.ToString() });
+            }
+        }
+
+        private void loginfailed()
+        {
+            int loginfail = 1;
+            ViewBag.LoginFail = loginfail;
+        }
 
         // GET: User
         public ActionResult User()
@@ -30,9 +51,10 @@ namespace ChurchServer.Controllers
             selectuser.UserList = Umap.Map(UDA.GetUserList());
             return View(selectuser);
         }
-
+        [HttpGet]
         public ActionResult CreateUser()
         {
+            
             return View();
         }
 
@@ -53,17 +75,28 @@ namespace ChurchServer.Controllers
 
         public ActionResult UpdateUser()
         {
+            PopulateDropDowns();
             return View();
         }
 
         [HttpPost]
-        public ActionResult UpdateUser(User update, int UserID)
+        public ActionResult UpdateUser(Users update, int UserID)
         {
-            //States User model is equal to the Userid Recieved From the View.
-            update.UserID = UserID;
-            //Takes the New User model and sends it to the UDA
-            UDA.UpdateUser(Umap.Map(update));
-
+            ActionResult response;
+            //check if user is accessing view in web browser.
+            if (ModelState.IsValid)
+            {
+                //States User model is equal to the Userid Recieved From the View.
+                update.UserID = UserID;
+                //Takes the New User model and sends it to the UDA
+                UDA.UpdateUser(Umap.Map(update));
+                
+            }
+            else
+            {
+                PopulateDropDowns();
+                response = View(UserID);
+            }
             return RedirectToAction("ViewUsers", "User");
         }
 
@@ -82,18 +115,29 @@ namespace ChurchServer.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User viewModel)
+        public ActionResult Login(Users viewModel)
         {
             //check if user is accessing view in web browser.
             if (ModelState.IsValid)
             {
-
-                //Run login sp using my view.
-                UserDAO _user = UDA._login(Umap.Map(viewModel));
-                // Put the _user values into session variable
-                Session["UserID"] = _user.UserID;
-                Session["Username"] = _user.Username;
-                Session["RoleID"] = _user.RoleID;
+                try
+                {
+                    //Run login sp using my view.
+                    UserDAO _user = UDA._login(Umap.Map(viewModel));
+                    // Put the _user values into session variable
+                    Session["UserID"] = _user.UserID;
+                    Session["Username"] = _user.Username;
+                    Session["RoleID"] = _user.RoleID;
+                    ViewBag.LoginFail = 0;
+                }
+                catch
+                {
+                    return RedirectToAction("Login", "User");
+                }
+                if ((int)Session["UserID"] == 0)
+                {
+                    loginfailed();
+                }
             }
             else
             {
@@ -103,7 +147,7 @@ namespace ChurchServer.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateUser(User newuser)
+        public ActionResult CreateUser(Users newuser)
         {
             //check if user is accessing view in web browser.
             if (ModelState.IsValid)

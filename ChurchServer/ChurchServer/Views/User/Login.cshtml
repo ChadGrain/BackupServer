@@ -1,7 +1,10 @@
-﻿@model ChurchServer.Models.User
+﻿@model ChurchServer.Models.Users
 @if (Session["UserID"] != null)
 {
+    if ((int)Session["UserID"] != 0)
+    {
     <h2 class="whitebackround bordertext">Welcome @Session["Username"]</h2>
+    }
 }
 @{
     ViewBag.Title = "Login";
@@ -9,20 +12,25 @@
 <div class="whitebackround borderimg">
     @using (Html.BeginForm("Login", "User", FormMethod.Post))
     {
+    <div class="form-horizontal">
+
+        @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="username" id="Username" name="Username" class="form-control" data-toggle="password">
+            @*@Html.TextBoxFor(m => m.Username, htmlAttributes: new { @class = "control-label col-md-2" })*@
+        </div>
         <div class="form-horizontal">
-            @Html.LabelFor(m => m.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="username" id="Username" name="Username" class="form-control" data-toggle="password">
-                @*@Html.TextBoxFor(m => m.Username, htmlAttributes: new { @class = "control-label col-md-2" })*@
-            </div>
-            <div class="form-horizontal">
-                @Html.LabelFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    <input type="password" id="Password" name="Password" class="form-control" data-toggle="password">
-                    @*@Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                </div>
+                <input type="password" id="Password" name="Password" class="form-control" data-toggle="password">
+                @*@Html.TextBoxFor(m => m.Password, htmlAttributes: new { @class = "control-label col-md-2" })*@
             </div>
         </div>
+        @if (ViewBag.LoginFail == 1)
+        {
+            <p style="color:red;padding-left:200px">Something went wrong did you type your Username or Password incorectly.</p>
+        }
+    </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

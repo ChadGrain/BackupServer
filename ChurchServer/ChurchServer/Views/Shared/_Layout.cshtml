@@ -30,8 +30,14 @@
                     }
                     @Html.ActionLink("PrayerList", "ViewPrayer", "Prayer", new { area = "" }, new { @class = "navbar-brand" })
                     @Html.ActionLink("Missionary", "Missionary", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @if (Session["Username"] == null)
+                    {
                     @Html.ActionLink("Login", "Login", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    }
+                    @if (Session["Username"] != null)
+                    {
                     @Html.ActionLink("Logout", "Logout", "User", new { area = "" }, new { @class = "navbar-brand" })
+                    }
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">

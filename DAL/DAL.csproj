@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EventDataAccess.cs" />
+    <Compile Include="objects\EventDAO.cs" />
     <Compile Include="objects\PrayerDAO.cs" />
     <Compile Include="objects\RoleDAO.cs" />
     <Compile Include="objects\UserDAO.cs" />

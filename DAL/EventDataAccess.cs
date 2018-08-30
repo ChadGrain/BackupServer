@@ -11,13 +11,13 @@ using ErrorLogger;
 
 namespace DAL
 {
-    public class PrayerDataAccess
+    public class EventDataAccess
     {
         //Reference the Web config File and create a connection to the sql Server.
         static string connectionstring = ConfigurationManager.ConnectionStrings["churchDB"].ConnectionString;
 
-        //Method to Delete List.
-        public bool DeleteList(int ListID)
+        //Method to Delete Event.
+        public bool DeleteEvent(int EventID)
         {
             bool success = false;
             try
@@ -27,12 +27,12 @@ namespace DAL
                 {
                     //establish the command that will be passed to the database
                     //then defining the command
-                    using (SqlCommand _command = new SqlCommand("sp_DeleteList", _connection))
+                    using (SqlCommand _command = new SqlCommand("sp_DeleteEvent", _connection))
                     {
                         //This specifies what command is being used.
                         _command.CommandType = CommandType.StoredProcedure;
                         //Here the values get passed to the command.
-                        _command.Parameters.AddWithValue("@ListID", ListID);
+                        _command.Parameters.AddWithValue("@EventID", EventID);
                         //Now We open the Connection
                         _connection.Open();
                         //Exexute the command with our addded Data
@@ -52,16 +52,16 @@ namespace DAL
             return success;
         }
 
-        public List<PrayerDAO> GetPList()
+        public List<EventDAO> GetEventList()
         {
-            //Create List Variables named plist.
-            List<PrayerDAO> _Plist = new List<PrayerDAO>();
+            //Create List Variables named eventlist.
+            List<EventDAO> _eventlist = new List<EventDAO>();
             try
             {
                 //connect to database.
                 using (SqlConnection _connection = new SqlConnection(connectionstring))
                 {
-                    using (SqlCommand _command = new SqlCommand("sp_ViewList", _connection))
+                    using (SqlCommand _command = new SqlCommand("sp_ViewEvent", _connection))
                     {
                         _command.CommandType = CommandType.StoredProcedure;
                         _connection.Open();
@@ -70,18 +70,16 @@ namespace DAL
                             while (_reader.Read())
                             {
                                 DateTime datetime;
-                                PrayerDAO _prayertoList = new PrayerDAO();
-                                _prayertoList.ListID = _reader.GetInt32(0);
-                                _prayertoList.Firstname = _reader.GetString(1);
-                                _prayertoList.Lastname = _reader.GetString(2);
-                                _prayertoList.DateAdded = _reader.GetDateTime(3);
-                                datetime = _prayertoList.DateAdded;
+                                EventDAO _eventtoList = new EventDAO();
+                                _eventtoList.EventID = _reader.GetInt32(0);
+                                _eventtoList.Event = _reader.GetString(1);
+                                _eventtoList.EventDesc = _reader.GetString(2);
+                                _eventtoList.EventDate = _reader.GetDateTime(3);
+                                datetime = _eventtoList.EventDate;
                                 string date = datetime.ToString("MM/dd/yyyy");
-                                _prayertoList.date = date;
-                                _prayertoList.Situation = _reader.GetString(4);
-                                _prayertoList.AddedBy = _reader.GetInt32(5);
-                                _prayertoList.Username = _reader.GetString(6);
-                                _Plist.Add(_prayertoList);
+                                _eventtoList.Date = date;
+                                _eventtoList.AddedBy = _reader.GetInt32(4);
+                                _eventlist.Add(_eventtoList);
                             }
 
                         }
@@ -94,24 +92,23 @@ namespace DAL
                 Problem.LogError(error);
             }
 
-            return _Plist;
+            return _eventlist;
         }
 
-        public bool AddList(PrayerDAO PD)
+        public bool AddEvent(EventDAO _eventCreate)
         {
             bool success = false;
             try
             {
                 using (SqlConnection _connection = new SqlConnection(connectionstring))
                 {
-                    using (SqlCommand _command = new SqlCommand("sp_CreateList", _connection))
+                    using (SqlCommand _command = new SqlCommand("sp_CreateEvent", _connection))
                     {
                         _command.CommandType = CommandType.StoredProcedure;
-                        _command.Parameters.AddWithValue("@Firstname", PD.Firstname);
-                        _command.Parameters.AddWithValue("@Lastname", PD.Lastname);
-                        _command.Parameters.AddWithValue("@DateAdded", PD.DateAdded);
-                        _command.Parameters.AddWithValue("@Situation", PD.Situation);
-                        _command.Parameters.AddWithValue("@AddedBy", PD.AddedBy);
+                        _command.Parameters.AddWithValue("@Event", _eventCreate.Event);
+                        _command.Parameters.AddWithValue("@EventDesc", _eventCreate.EventDesc);
+                        _command.Parameters.AddWithValue("@EventDate", _eventCreate.EventDate);
+                        _command.Parameters.AddWithValue("@AddedBy", _eventCreate.AddedBy);
                         _connection.Open();
                         _command.ExecuteNonQuery();
                         success = true;
@@ -128,22 +125,21 @@ namespace DAL
             return success;
         }
 
-        public bool UpdateList(PrayerDAO PD)
+        public bool UpdateEvent(EventDAO ED)
         {
             bool success = false;
             try
             {
                 using (SqlConnection _connection = new SqlConnection(connectionstring))
                 {
-                    using (SqlCommand _command = new SqlCommand("sp_UpdateList", _connection))
+                    using (SqlCommand _command = new SqlCommand("sp_UpdateEvent", _connection))
                     {
                         _command.CommandType = CommandType.StoredProcedure;
-                        _command.Parameters.AddWithValue("@ListID", PD.ListID);
-                        _command.Parameters.AddWithValue("@Firstname", PD.Firstname);
-                        _command.Parameters.AddWithValue("@Lastname", PD.Lastname);
-                        _command.Parameters.AddWithValue("@DateAdded", PD.DateAdded);
-                        _command.Parameters.AddWithValue("@Situation", PD.Situation);
-                        _command.Parameters.AddWithValue("@AddedBy", PD.AddedBy);
+                        _command.Parameters.AddWithValue("@EventID", ED.EventID);
+                        _command.Parameters.AddWithValue("@Event", ED.Event);
+                        _command.Parameters.AddWithValue("@EventDesc", ED.EventDesc);
+                        _command.Parameters.AddWithValue("@EventDate", ED.EventDate);
+                        _command.Parameters.AddWithValue("@AddedBy", ED.AddedBy);
                         _connection.Open();
                         _command.ExecuteNonQuery();
                         success = true;

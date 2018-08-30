@@ -14,5 +14,7 @@ namespace DAL.objects
         public DateTime DateAdded { get; set; }
         public string Situation { get; set; }
         public string date { get; set; }
+        public int AddedBy { get; set; }
+        public string Username { get; set; }
     }
 }

@@ -1,0 +1,98 @@
+﻿@model ChurchServer.Models.EventViewModel
+@using ChurchServer.Models
+@{
+    ViewBag.Title = "ViewEvent";
+}
+
+<h2 class="header whitebackround bordertext">Event List</h2>
+
+
+@if (Session["RoleID"] == null)
+{
+    <div class="whitebackround bordertext">
+        <table class="table">
+            <tr>
+
+                <th>Event</th>
+                <th>Event Description</th>
+                <th>Event Date</th>
+            </tr>
+            @foreach (Events _eventinfo in Model.EventList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(m => _eventinfo.Event)</td>
+                    <td>@Html.DisplayFor(m => _eventinfo.EventDesc)</td>
+                    <td>@Html.DisplayFor(m => _eventinfo.Date)</td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+
+else if (Session["RoleID"] != null)
+{
+    if (Session["RoleID"].ToString() == "1" || Session["RoleID"].ToString() == "2")
+    {
+        <div style="background-color:white">
+            <table class="table">
+                <tr>
+                    <th>EventID</th>
+                    <th>Event</th>
+                    <th>Event Description</th>
+                    <th>Event Date</th>
+                    <th>Addedby</th>
+
+                </tr>
+                @foreach (Events _eventinfo in Model.EventList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => _eventinfo.EventID)</td>
+                        <td>@Html.DisplayFor(m => _eventinfo.Event)</td>
+                        <td>@Html.DisplayFor(m => _eventinfo.EventDesc)</td>
+                        <td>@Html.DisplayFor(m => _eventinfo.Date)</td>
+                        <td>@Html.DisplayFor(m => _eventinfo.Username)</td>
+
+
+
+                        @if (Session["RoleID"].ToString() == "2")
+                        {
+                            <td>@Html.ActionLink("Update", "UpdateEvent", new { EventID = _eventinfo.EventID })</td>
+                        }
+
+                        @if (Session["RoleID"].ToString() == "1")
+                        {
+                            <td>@Html.ActionLink("Update", "UpdateEvent", new { EventID = _eventinfo.EventID })</td>
+                            <td>@Html.ActionLink("Delete", "Delete", new { EventID = _eventinfo.EventID })</td>
+
+                        }
+                    </tr>
+                }
+            </table>
+        </div>
+
+        <div>
+            @Html.ActionLink("Add Event", "AddEvent")
+        </div>
+    }
+    else if (Session["RoleID"].ToString() == "3" || Session["RoleID"].ToString() != null)
+    {
+        <div style="background-color:white">
+            <table class="table">
+                <tr>
+
+                    <th>Event</th>
+                    <th>Event Description</th>
+                    <th>Event Date</th>
+                </tr>
+                @foreach (Events _eventinfo in Model.EventList)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(m => _eventinfo.Event)</td>
+                        <td>@Html.DisplayFor(m => _eventinfo.EventDesc)</td>
+                        <td>@Html.DisplayFor(m => _eventinfo.Date)</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    }
+}

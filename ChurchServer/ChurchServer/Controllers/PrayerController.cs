@@ -45,10 +45,12 @@ namespace ChurchServer.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateList(Prayer Update,int ListID)
+        public ActionResult UpdateList(Prayer Update,int ListID, int AddedBy)
         {
             //States the ListID
             Update.ListID = ListID;
+            AddedBy = (int)Session["UserID"];
+            Update.AddedBy = AddedBy;
             //Sends Updated to the update command
             PDA.UpdateList(Pmap.Map(Update));
 
@@ -60,8 +62,10 @@ namespace ChurchServer.Controllers
         {
             //check if user is accessing view in web browser.
             if (ModelState.IsValid)
-            {       //Adds what we recieved from the view to the Create command
-                    PDA.AddList(Pmap.Map(addprayer));
+            {
+                addprayer.AddedBy = (int)Session["UserID"];
+                //Adds what we recieved from the view to the Create command
+                PDA.AddList(Pmap.Map(addprayer));
             }
             return RedirectToAction("ViewPrayer");
         }

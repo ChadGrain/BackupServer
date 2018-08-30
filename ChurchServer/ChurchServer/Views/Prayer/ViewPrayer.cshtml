@@ -13,10 +13,10 @@
         <table class="table">
             <tr>
 
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>First name</th>
+                <th>Last name</th>
                 <th>Situation</th>
-                <th>DateAdded</th>
+                <th>Date Added</th>
             </tr>
             @foreach (Prayer _prayerinfo in Model.PrayerList)
             {
@@ -38,10 +38,11 @@ else if (Session["RoleID"] != null)
         <div style="background-color:white">
             <table class="table">
                 <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
+                    <th>First name</th>
+                    <th>Last name</th>
                     <th>Situation</th>
-                    <th>DateAdded</th>
+                    <th>Date Added</th>
+                    <th>Added By</th>
 
                 </tr>
                 @foreach (Prayer _prayerinfo in Model.PrayerList)
@@ -51,6 +52,7 @@ else if (Session["RoleID"] != null)
                         <td>@Html.DisplayFor(m => _prayerinfo.Lastname)</td>
                         <td>@Html.DisplayFor(m => _prayerinfo.Situation)</td>
                         <td>@Html.DisplayFor(m => _prayerinfo.date)</td>
+                        <td>@Html.DisplayFor(m => _prayerinfo.Username)</td>
 
 
 

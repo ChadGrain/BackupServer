@@ -20,6 +20,8 @@ namespace ChurchServer.Models
                 _prayertoview.date = _prayertomap.date;
                 _prayertoview.DateAdded = _prayertomap.DateAdded;
                 _prayertoview.Situation = _prayertomap.Situation;
+                _prayertoview.AddedBy = _prayertomap.AddedBy;
+                _prayertoview.Username = _prayertomap.Username;
                 _PrayerListToReturn.Add(_prayertoview);
             }
             return _PrayerListToReturn.OrderBy(x => x.Firstname).ToList();
@@ -33,6 +35,8 @@ namespace ChurchServer.Models
             _prayertoview.Lastname = _prayertomap.Lastname;
             _prayertoview.DateAdded = _prayertomap.DateAdded;
             _prayertoview.Situation = _prayertomap.Situation;
+            _prayertoview.AddedBy = _prayertomap.AddedBy;
+            _prayertoview.Username = _prayertomap.Username;
             return _prayertoview;
         }
     }

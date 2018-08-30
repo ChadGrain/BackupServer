@@ -45,11 +45,11 @@ namespace ChurchServer.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateList(Prayer Update,int ListID, int AddedBy)
+        public ActionResult UpdateList(Prayer Update,int ListID)
         {
             //States the ListID
             Update.ListID = ListID;
-            AddedBy = (int)Session["UserID"];
+            int AddedBy = (int)Session["UserID"];
             Update.AddedBy = AddedBy;
             //Sends Updated to the update command
             PDA.UpdateList(Pmap.Map(Update));
